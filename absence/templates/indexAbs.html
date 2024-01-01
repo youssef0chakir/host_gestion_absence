@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absence</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<body>
+    <div class="container">
+        <h1>Absence</h1>
+
+        {% if total_absence %}
+        <p>Total Absence: {{ total_absence }}</p>
+        {% endif %}
+
+        <form action="{% url 'indexAbs' %}" method="GET" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="entry ID ">
+            <button type="submit" id="new3">Search</button>
+            <a href="{% url 'indexAbs' %}"><button type="button" id="new3">Refresh</button></a>
+            <button type="submit" id="new3">Calculate Absence Total</button>
+
+        </form>
+
+        <table id="customers" border="1">
+            <thead>
+                <th>ID Student</th>
+                 <th>ID Cours</th>
+                <th>Number Hour </th> 
+                <th>Date </th> 
+                <th colspan="2" id="mid">Action</th>
+            </thead>
+            {% for x in mem %}
+             <tr>
+                <td>{{x.id_etudiant}}</td>
+                 <td>{{x.id_cours}}</td>
+                <td>{{x.nombre_heures_absence}}</td> 
+                <td>{{x.date_absence}}</td> 
+                <td>
+                    <a href="updateAbs/{{x.id}}"><button id="up">update</button></a>
+                </td>
+                <td>
+                    <a href="deleteAbs/{{x.id}}"><button id="del">delete</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br><br>
+        <a href="{% url 'addAbs' %}"><button id="new3">Add Absence</button></a>
+        <a href="{% url 'indexEtu' %}"><button id="new4">Gestion Student</button></a>
+    </div>
+</body>
+
+</html>
